@@ -1,0 +1,10 @@
+{
+  "customLayouts": {
+    "brand": {},
+    "category": {},
+    "page": {},
+    "product": {}
+  },
+  "normalStoreUrl": "https://store-7ysyi43er1.mybigcommerce.com/",
+  "port": "3000"
+}
