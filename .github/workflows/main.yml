@@ -32,4 +32,4 @@ jobs:
 
       - name: Push Theme
         run: |
-          stencil push -a Light -d
+          stencil push -a Default -d
