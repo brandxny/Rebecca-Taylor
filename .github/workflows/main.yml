@@ -1,35 +1,47 @@
-name: Push Stencil Theme To BigCommerce
-# This workflow is triggered on pushes to the Main Branch only.
+# Deploy Theme to Store when new changes are pushed to master branch
+name: Deploy Theme to Store
+
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [ master, main ]
 
 jobs:
   build:
-    name: Stencil Push
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node: [14.x]
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v1
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set Node version to 14
-        uses: actions/setup-node@v1
-        with:
-          node-version: 14
+    - name: Use Node.js ${{ matrix.node }}
+      uses: actions/setup-node@v2-beta
+      with:
+        node-version: ${{ matrix.node }}
 
-      - name: Install Dependencies
-        run: |
-          npm install -g @bigcommerce/stencil-cli
-          yarn
+    - name: npm cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
-      - name: Connect to store
-        env:    
-          URL: ${{ secrets.DEVELOPMENT_STORE_URL }}
-          TOKEN: ${{ secrets.DEVELOPEMENT_ACCESS_TOKEN }}
-        run: stencil init -u $URL -t $TOKEN -p 3000 -h https://api.bigcommerce.com
+    - name: Install Stencil CLI Dependency
+      run: npm install -g @bigcommerce/stencil-cli
 
-      - name: Push Theme
-        run: |
-          stencil push -a Light -d
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Connect to store
+      env:
+        URL: ${{ secrets.REBECCA_STORE_URL }}
+          TOKEN: ${{ secrets.REBECCA_ACCESS_TOKEN }}
+      run: stencil init -u $URL -t $TOKEN -p 3000 -h https://api.bigcommerce.com
+
+    - name: Push theme live, automatically deleting oldest theme if necessary
+      run: stencil push -a -d -c 1
