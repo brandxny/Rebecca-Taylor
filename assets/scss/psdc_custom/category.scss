@@ -60,14 +60,14 @@
   @include display-flex(flex);
   @include align-item(center);
   @include justify-content(space-between);
-  background: stencilColor("container-fill-dark");
+  background: stencilColor("container-fill-base");
   margin-bottom: 23px;
   @media only screen and (max-width: 1023px) {
     @include flex-wrap(wrap);
   }
   .category-left-section{
     width: 100%;
-    padding:25px 29px;
+    padding:1em 0;
     &.visible-top-banner{
       width: 50%;
       @media only screen and (max-width: 1023px) {

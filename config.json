@@ -611,7 +611,7 @@
         "alert-color": "#333333",
         "alert-color-alt": "#ffffff",
         "storeName-color": "#000000",
-        "body-bg": "#F7F6F2",
+        "body-bg": "#fff",
         "header-backgroundColor": "#FFFFFF",
         "footer-backgroundColor": "#ffffff",
         "navUser-color": "#000000",
