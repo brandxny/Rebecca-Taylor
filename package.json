@@ -1,9 +1,9 @@
 {
   "name": "LifeStyle",
-  "description": "LifeStyle theme for the BigCommerce Stencil platform",
-  "version": "1.4.2",
+  "description": "LifeStyle theme - Brandx",
+  "version": "1.4.3",
   "private": true,
-  "author": "1Center",
+  "author": "Brandx",
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
