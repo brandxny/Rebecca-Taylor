@@ -18,7 +18,7 @@
             {{/if}}
         {{/or}}
         <a href="{{url}}" {{#if settings.data_tag_enabled}} data-event-type="product-click" {{/if}}>
-            <div class="card-img-container {{#if image}}show-image{{else}}no-img{{/if}}">
+            <div class="{{#if image}}show-image{{else}}no-img{{/if}}"><!--this class was here card-img-container-->
                 {{> components/common/responsive-img
                     image=image
                     class="card-image"
