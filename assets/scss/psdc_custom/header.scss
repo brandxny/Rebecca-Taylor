@@ -28,8 +28,9 @@
 }
 .header-center{
   width: 50%;
-  @media only screen and (max-width: 1023px) {
-    display: none;
+  display: none;
+  @media only screen and (min-width: 1023px) {
+    display: block;
   }
 }
 .header-right{
@@ -199,11 +200,10 @@
 }
 
 .desktop_mobile_menu{
-  // width: 70px;
-  padding-right: 25px;
-  @media only screen and (max-width: 1023px) {
-    // width: 50px;
+  // width: 50px;
     padding-right: 10px;
+  @media only screen and (min-width: 1023px) {    
+    display: none;
   }
   .control-otherlinks{
     span{

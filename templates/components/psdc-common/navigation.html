@@ -37,12 +37,12 @@
 </div>
 
 <div id="headerSidebar" class="header-side-bar">
-<div class="header-side-bar-inn">
+<nav class="header-side-bar-inn">
   <div class="close">
     <a class="close-icon" href="javascript:void(0);"><svg><use xlink:href="#icon-close"></use></svg></a>
   </div>
   <div class="category headerSidebar-block">
-    <h5 class="sidebarBlock-heading">{{lang 'footer.categories'}}</h5>
+    <p class="sidebarBlock-heading">{{lang 'footer.categories'}}</p>
     <ul class="navList navList-treeview">
         {{#each categories}}
             <li class="navPages-item">
@@ -52,7 +52,7 @@
     </ul>
   </div>
   <div class="webpages headerSidebar-block">
-    <h5 class="sidebarBlock-heading">{{lang 'footer.navigate'}}</h5>
+    <p class="sidebarBlock-heading">{{lang 'footer.navigate'}}</p>
     <ul class="navList navList-treeview">
       {{#each pages}}
            <li class="navPages-item navPages-item-page">
@@ -63,7 +63,7 @@
   </div>
   {{#if shop_by_brand}}
     <div class="brand headerSidebar-block">
-      <h5 class="sidebarBlock-heading">{{lang 'footer.brands'}}</h5>
+      <p class="sidebarBlock-heading">{{lang 'footer.brands'}}</p>
       <ul class="navList navList-treeview">
         {{#each shop_by_brand}}
             {{#if @index '<' '5' }}
@@ -80,10 +80,10 @@
   {{/if}}
   {{#if currency_selector.currencies.length '>' 1}}
     <div class="brand headerSidebar-block mobile-currancy">
-      <h5 class="sidebarBlock-heading">{{lang 'common.currency' code=currency_selector.active_currency_code}} <span class="flag">{{{lang 'common.currency-flag' flag=currency_selector.active_currency_flag}}}</span><span class="code">{{lang 'common.currency-code' code=currency_selector.active_currency_code}}</span></h5>
+      <p class="sidebarBlock-heading">{{lang 'common.currency' code=currency_selector.active_currency_code}} <span class="flag">{{{lang 'common.currency-flag' flag=currency_selector.active_currency_flag}}}</span><span class="code">{{lang 'common.currency-code' code=currency_selector.active_currency_code}}</span></p>
 
     </div>
   {{/if}}
-</div>
+  </nav>
 
 </div>
