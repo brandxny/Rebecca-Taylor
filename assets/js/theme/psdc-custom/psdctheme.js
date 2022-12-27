@@ -159,7 +159,7 @@ export default function () {
       if ($('[sticky="true"]').length && $(window).width() > 1023) {
         if (hHeader < $(window).scrollTop() && !scrollElement) {
           if ($('.header').length) {
-            $('.header').addClass('stuck');
+            $('.header').addClass('                                 ');
             $('.body').addClass('body-stuck').css('margin-top', headerHeight + 'px');
           }
           scrollElement = true;
