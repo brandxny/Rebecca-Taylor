@@ -1084,7 +1084,13 @@
     "sitemap": {
         "page_title": "Sitemap",
         "show_all_link": "Show All"
-    },
+    },    
+    "terms_conditions": {
+        "page_title": "Terms & Conditions"
+    },    
+    "privacy_policy": {
+        "page_title": "Privacy Policy"
+    },    
     "text_truncate": {
         "view_more": "View more details",
         "view_less": "Hide details"
