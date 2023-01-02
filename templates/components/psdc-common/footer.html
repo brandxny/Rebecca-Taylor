@@ -1,37 +1,25 @@
-
-
 <footer class="footer" role="contentinfo">
     {{> components/psdc-common/usp-section}}
     <div class="footer-info-inn">
       <div class="container">
           <section class="footer-info">
             {{#if settings.address}}
-              <article class="footer-info-col footer-info-col--small footer-store-info" data-section-type="storeInfo">
-                  {{#if theme_settings.footer-logo}}
-                    <div class="footer-logo">
-                      <a href="/"><img src="/product_images/uploaded_images/{{theme_settings.footer-logo}}" alt=""></a>
-                    </div>
-                  {{/if}}
-                  {{#if settings.address}}
-                    <p><svg><use xlink:href="#icon-location"></use></svg><span>{{nl2br settings.address}}</span></p>
-                  {{/if}}
-                  {{#if settings.phone_number}}
-                    <p><svg><use xlink:href="#icon-call"></use></svg><a href="tel:{{lang 'footer.call_us' phone_number=settings.phone_number}}">{{lang 'footer.call_us' phone_number=settings.phone_number}}</a></p>
-                  {{/if}}
-                  {{#if theme_settings.footer-email}}
-                    <p class="email"><svg><use xlink:href="#icon-email-id"></use></svg><a href="mailto:{{theme_settings.footer-email}}">{{theme_settings.footer-email}}</a></p>
-                  {{/if}}
-                  {{#if theme_settings.footer-time}}
-                    <p class="time"><svg><use xlink:href="#icon-time"></use></svg><span>{{theme_settings.footer-time}}</span></p>
-                  {{/if}}
+              <article class="footer-info-col footer-info-col--small footer-store-info" data-section-type="storeInfo">                  
+                  <div class="footer-logo">
+                    <h2>
+                      <a href="/">
+                        <img class="header-logo-image-unknown-size" src="https://cdn11.bigcommerce.com/s-7ysyi43er1/images/stencil/original/logo_1671375904__44724.original.png" alt="Rebecca Taylor" title="Rebecca Taylor">
+                      </a>
+                    </h2>
+                  </div>                  
               </article>
             {{/if}}
             {{#if pages}}
                 <article class="footer-info-col footer-info-col--small" data-section-type="footer-webPages">
                   <div class="footer-info--col-inn">
-                    <h5 class="footer-info-heading footer-toggle-title">{{lang 'footer.navigate'}}
+                    <h3 class="footer-info-heading footer-toggle-title">{{lang 'footer.navigate'}}
                       <svg class="down"><use xlink:href="#icon-keyboard-arrow-down"></use></svg>
-                    </h5>
+                    </h3>
                     <div class="footer-toggle-content">
                       <ul class="footer-info-list">
                         {{#each pages}}
@@ -46,33 +34,13 @@
                   </div>
                 </article>
               {{/if}}
-              {{#and theme_settings.shop_by_brand_show_footer shop_by_brand.length}}
-              <article class="footer-info-col footer-info-col--small" data-section-type="footer-brands">
-                <div class="footer-info--col-inn">
-                  <h5 class="footer-info-heading footer-toggle-title">{{lang 'footer.brands'}}
-                    <svg class="down"><use xlink:href="#icon-keyboard-arrow-down"></use></svg>
-                  </h5>
-                  <div class="footer-toggle-content">
-                    <ul class="footer-info-list">
-                      {{#each shop_by_brand}}
-                          {{#if @index '<' '6' }}
-                              <li>
-                                  <a href="{{url}}">{{name}}</a>
-                              </li>
-                          {{/if}}
-                      {{/each}}
-                      <li class="view-all"><a href="{{urls.brands}}">{{lang 'common.view_all'}}</a></li>
-                  </ul>
-                  </div>
-                </div>
-              </article>
-              {{/and}}
+
               {{#if categories}}
               <article class="footer-info-col footer-info-col--small" data-section-type="footer-categories">
                 <div class="footer-info--col-inn">
-                  <h5 class="footer-info-heading footer-toggle-title">{{lang 'footer.categories'}}
+                  <h3 class="footer-info-heading footer-toggle-title">{{lang 'footer.categories'}}
                     <svg class="down"><use xlink:href="#icon-keyboard-arrow-down"></use></svg>
-                  </h5>
+                  </h3>
                   <div class="footer-toggle-content">
                     <ul class="footer-info-list">
                         {{#each categories}}
@@ -96,7 +64,7 @@
                 footer-info-col--social
                 footer-info-col--{{#if theme_settings.social_icon_placement_bottom '===' 'bottom_left'}}left{{else}}right{{/if}}"
                 data-section-type="footer-webPages">
-                    <h5 class="footer-info-heading">{{lang 'social.connect'}}</h5>
+                    <h3 class="footer-info-heading">{{lang 'social.connect'}}</h3>
                     {{> components/common/social-links}}
             </article>
           {{/if}}
@@ -112,7 +80,7 @@
           <article class="footer-info-col footer-info-col--payment">
             {{#or theme_settings.show_accept_amex theme_settings.show_accept_discover theme_settings.show_accept_mastercard theme_settings.show_accept_paypal theme_settings.show_accept_visa}}
               <div class="payment">
-                <h5 class="footer-info-heading">{{lang 'payment-method.payment'}}</h5>
+                <h3 class="footer-info-heading">{{lang 'payment-method.payment'}}</h3>
                 {{> components/psdc-common/payment-icons}}
               </div>
             {{/or}}
