@@ -17,6 +17,7 @@
 }
 
 .modal--large {
+    background: #fff;
     @include breakpoint("large") {
         width: $modal-width--large;
     }
