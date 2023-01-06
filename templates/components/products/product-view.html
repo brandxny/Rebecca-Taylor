@@ -162,73 +162,143 @@
     </section>
 
     <section class="productView-details">
-        <div class="productView-product">
-            {{#if product.brand}}
-                <h2 class="productView-brand"{{#if schema}} itemprop="brand" itemscope itemtype="http://schema.org/Brand"{{/if}}>
-                    <a href="{{product.brand.url}}"{{#if schema}} itemprop="url"{{/if}}><span{{#if schema}} itemprop="name"{{/if}}>{{product.brand.name}}</span></a>
-                </h2>
-            {{/if}}
-            <h1 class="productView-title" {{#if schema}}itemprop="name"{{/if}}>{{product.title}}</h1>
-            {{{region name="product_below_price"}}}
-            <div class="price-block">
-              {{#if product.call_for_price}}
-                  <p class="productView-price">
-                      <span>{{product.call_for_price}}</span>
-                  </p>
-              {{/if}}
-              <div class="productView-price {{#if product.call_for_price}}call-for-price{{/if}}">
-                  {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
-                      {{> components/psdc-common/price price=product.price schema_org=schema}}
-                  {{else}}
-                      {{> components/common/login-for-pricing}}
-                  {{/or}}
-              </div>
 
-              <div class="price-block-left">
-                {{#if product.stock_level}}<span class="instock">In stock</span>{{/if}}
-                <div class="productView-rating"{{#if product.num_reviews '>' 0}}{{#if schema}} itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"{{/if}}{{/if}}>
-                    {{#if settings.show_product_rating}}
-                        {{#if product.num_reviews '>' 0}}
-                            {{#if schema}}
-                                <meta itemprop="ratingValue" content="{{product.rating}}">
-                                <meta itemprop="ratingCount" content="{{product.num_reviews}}">
-                                <meta itemprop="reviewCount" content="{{product.num_reviews}}">
-                            {{/if}}
+        <h1 class="productView-title" {{#if schema}}itemprop="name"{{/if}}>{{product.title}}</h1>
+        <!-- [START] vertical Brand -->
+        {{#if product.brand}}
+            <h2 class="productView-brand"{{#if schema}} itemprop="brand" itemscope itemtype="http://schema.org/Brand"{{/if}}>
+                <a href="{{product.brand.url}}"{{#if schema}} itemprop="url"{{/if}}><span{{#if schema}} itemprop="name"{{/if}}>{{product.brand.name}}</span></a>
+            </h2>
+        {{/if}}
+        <!-- [END] vertical Brand -->
+        {{{region name="product_below_price"}}}
+        <div class="price-block">
+          {{#if product.call_for_price}}
+              <p class="productView-price">
+                  <span>{{product.call_for_price}}</span>
+              </p>
+          {{/if}}
+          <div class="productView-price {{#if product.call_for_price}}call-for-price{{/if}}">
+              {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                  {{> components/psdc-common/price price=product.price schema_org=schema}}
+              {{else}}
+                  {{> components/common/login-for-pricing}}
+              {{/or}}
+          </div>
+
+          <div class="price-block-left">
+            {{#if product.stock_level}}<span class="instock">In stock</span>{{/if}}
+            <div class="productView-rating"{{#if product.num_reviews '>' 0}}{{#if schema}} itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"{{/if}}{{/if}}>
+                {{#if settings.show_product_rating}}
+                    {{#if product.num_reviews '>' 0}}
+                        {{#if schema}}
+                            <meta itemprop="ratingValue" content="{{product.rating}}">
+                            <meta itemprop="ratingCount" content="{{product.num_reviews}}">
+                            <meta itemprop="reviewCount" content="{{product.num_reviews}}">
                         {{/if}}
-                        {{> components/products/ratings rating=product.rating}}
-                        <span class="productView-reviewLink">
-                            {{#if product.num_reviews '>' 0}}
-                                <a href="{{product.url}}#product-reviews">
-                                    {{lang 'products.reviews.link_to_review' total=product.num_reviews}}
-                                </a>
-                            {{else}}
+                    {{/if}}
+                    {{> components/products/ratings rating=product.rating}}
+                    <span class="productView-reviewLink">
+                        {{#if product.num_reviews '>' 0}}
+                            <a href="{{product.url}}#product-reviews">
                                 {{lang 'products.reviews.link_to_review' total=product.num_reviews}}
-                            {{/if}}
-                        </span>
-                    {{/if}}
-                    {{#if settings.show_product_reviews}}
-                        <span class="productView-reviewLink">
-                            <a href="{{product.url}}{{#if is_ajax}}#write_review{{/if}}"
-                               {{#unless is_ajax }}data-reveal-id="modal-review-form"{{/unless}}>
-                               {{lang 'products.reviews.new'}}
                             </a>
-                        </span>
-                        {{> components/products/modals/writeReview}}
-                    {{/if}}
-                </div>
-              </div>
+                        {{else}}
+                            {{lang 'products.reviews.link_to_review' total=product.num_reviews}}
+                        {{/if}}
+                    </span>
+                {{/if}}
+                {{#if settings.show_product_reviews}}
+                    <span class="productView-reviewLink">
+                        <a href="{{product.url}}{{#if is_ajax}}#write_review{{/if}}"
+                           {{#unless is_ajax }}data-reveal-id="modal-review-form"{{/unless}}>
+                           {{lang 'products.reviews.new'}}
+                        </a>
+                    </span>
+                    {{> components/products/modals/writeReview}}
+                {{/if}}
             </div>
+          </div>
+        </div>
+
+        <div class="productView-options">
+            {{#if product.release_date }}
+                <p>{{product.release_date}}</p>
+            {{/if}}
+            <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
+                  data-cart-item-add>
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="product_id" value="{{product.id}}"/>
+                <div data-product-option-change style="display:none;">
+                    {{#each product.options}}
+                        {{{dynamicComponent 'components/products/options'}}}
+                    {{/each}}
+                </div>
+                <div class="form-field form-field--stock{{#unless product.stock_level}} u-hiddenVisually{{/unless}}">
+                    <label class="form-label form-label--alternate">
+                        {{lang 'products.current_stock'}}
+                        <span data-product-stock>{{product.stock_level}}</span>
+                    </label>
+                </div>
+                
+                {{#or product.can_purchase product.options}}
+                    {{> components/products/add-to-cart}}
+                {{/or}}
+
+                {{#if product.out_of_stock}}
+                    {{#if product.out_of_stock_message}}
+                        {{> components/common/alert-error product.out_of_stock_message}}
+                    {{else}}
+                        {{> components/common/alert-error (lang 'products.sold_out')}}
+                    {{/if}}
+                {{/if}}
+                {{#if theme_settings.EnableProductCompare}}
+                  <div class="productView-compare">
+                      <a data-tooltip class="button compare-box compare" for="compare-{{product.id}}" data-compare-id="{{product.id}}">
+                      <i class="icon">
+                        <svg>
+                            <use xlink:href="#icon-p-compare"/>
+                        </svg>
+                      </i>
+                    </a>
+                  </div>
+                {{/if}}
+                {{#if settings.show_wishlist}}
+                  <div class="productView-compare">
+                      <button class="button compare" type="button"   {{#if customer}} data-reveal-id="{{#if schema}}WishlistModal{{else}}QuickViewWishlistModal{{/if}}"{{else}}onclick="location.href='{{urls.auth.login}}';"{{/if}} name="button">
+                        <i class="icon">
+                          <svg>
+                            <use xlink:href="#icon-wishlist"/>
+                          </svg>
+                        </i>
+                    </button>
+                  </div>
+                  {{/if}}
+            </form>
+            {{#if settings.show_wishlist}}
+              <div id="{{#if schema}}WishlistModal{{else}}QuickViewWishlistModal{{/if}}" class="modal" data-reveal>
+                  <div class="modal-header">
+                      <h2 class="modal-header-title">Add to Wishlist</h2>
+                      <a href="#" class="modal-close" aria-label="Close"><span aria-hidden="true">&#215;</span></a>
+                  </div>
+                  {{> components/psdc-common/wishlist-model}}
+              </div>
+            {{/if}}
+
+        </div>
+
+    </section>
+
+    <section class="productView-details">
+        <div class="productView-product">            
 
             {{product.detail_messages}}
             <dl class="productView-info">
-              {{#if product.sku}}
-                <dt class="productView-info-name sku-label"{{#unless product.sku}} style="display: none;"{{/unless}}>{{lang 'products.sku'}}</dt>
-                <dd class="productView-info-value" data-product-sku{{#if schema}} itemprop="sku"{{/if}}>{{product.sku}}</dd>
-              {{/if}}
-              {{#if product.upc}}
-                <dt class="productView-info-name upc-label"{{#unless product.upc}} style="display: none;"{{/unless}}>{{lang 'products.upc'}}</dt>
-                <dd class="productView-info-value" data-product-upc>{{product.upc}}</dd>
-              {{/if}}
+
+                {{#if product.description}}     
+                    {{{product.description}}}            
+                {{/if}}
+
               {{#if schema}}
                     {{#if product.mpn}}<meta itemprop="mpn" content="{{product.mpn}}" />{{/if}}
                     {{#if product.gtin}}<meta itemprop="gtin" content="{{product.gtin}}" />{{/if}}
@@ -307,79 +377,11 @@
                     </div>
                 {{/if}}
 
-            </dl>
+            </dl>            
         </div>
-    </section>
-
-    <section class="productView-details">
-        <div class="productView-options">
-            {{#if product.release_date }}
-                <p>{{product.release_date}}</p>
-            {{/if}}
-            <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
-                  data-cart-item-add>
-                <input type="hidden" name="action" value="add">
-                <input type="hidden" name="product_id" value="{{product.id}}"/>
-                <div data-product-option-change style="display:none;">
-                    {{#each product.options}}
-                        {{{dynamicComponent 'components/products/options'}}}
-                    {{/each}}
-                </div>
-                <div class="form-field form-field--stock{{#unless product.stock_level}} u-hiddenVisually{{/unless}}">
-                    <label class="form-label form-label--alternate">
-                        {{lang 'products.current_stock'}}
-                        <span data-product-stock>{{product.stock_level}}</span>
-                    </label>
-                </div>
-                
-                {{#or product.can_purchase product.options}}
-                    {{> components/products/add-to-cart}}
-                {{/or}}
-
-                {{#if product.out_of_stock}}
-                    {{#if product.out_of_stock_message}}
-                        {{> components/common/alert-error product.out_of_stock_message}}
-                    {{else}}
-                        {{> components/common/alert-error (lang 'products.sold_out')}}
-                    {{/if}}
-                {{/if}}
-                {{#if theme_settings.EnableProductCompare}}
-                  <div class="productView-compare">
-                      <a data-tooltip class="button compare-box compare" for="compare-{{product.id}}" data-compare-id="{{product.id}}">
-                      <i class="icon">
-                        <svg>
-                            <use xlink:href="#icon-p-compare"/>
-                        </svg>
-                      </i>
-                    </a>
-                  </div>
-                {{/if}}
-                {{#if settings.show_wishlist}}
-                  <div class="productView-compare">
-                      <button class="button compare" type="button"   {{#if customer}} data-reveal-id="{{#if schema}}WishlistModal{{else}}QuickViewWishlistModal{{/if}}"{{else}}onclick="location.href='{{urls.auth.login}}';"{{/if}} name="button">
-                        <i class="icon">
-                          <svg>
-                            <use xlink:href="#icon-wishlist"/>
-                          </svg>
-                        </i>
-                    </button>
-                  </div>
-                  {{/if}}
-            </form>
-            {{#if settings.show_wishlist}}
-              <div id="{{#if schema}}WishlistModal{{else}}QuickViewWishlistModal{{/if}}" class="modal" data-reveal>
-                  <div class="modal-header">
-                      <h2 class="modal-header-title">Add to Wishlist</h2>
-                      <a href="#" class="modal-close" aria-label="Close"><span aria-hidden="true">&#215;</span></a>
-                  </div>
-                  {{> components/psdc-common/wishlist-model}}
-              </div>
-            {{/if}}
-            <div class="share-block">
-              <label class="form-label--alternate" for="">share on:</label> {{> components/common/share postURL=(encodeURI product.url)}}
-            </div>
+        <div class="share-block">
+            <label class="form-label--alternate" for="">share on:</label> {{> components/common/share postURL=(encodeURI product.url)}}
         </div>
-
     </section>
 
 {{#if schema}}
