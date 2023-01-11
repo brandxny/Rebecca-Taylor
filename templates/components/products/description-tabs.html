@@ -1,12 +1,12 @@
 {{#if product.description}}
 <section class="toggle">
-  <h3 class="toggle-title">
+  <h4 class="toggle-title">
       <a href="#tab-description" class="toggleLink is-open" data-collapsible>
         <svg class="icon--name"><use xlink:href="#icon-product-description"></use></svg>
         <span>{{lang 'products.description'}}</span>
         <svg class="toggle-down-arrow"><use xlink:href="#icon-keyboard-arrow-down"></use></svg>
       </a>
-  </h3>
+  </h4>
   <div class="toggle-content is-open" id="tab-description">
     
       {{#if product.sku}}
@@ -25,13 +25,13 @@
 {{#if product.custom_fields}}
     <section class="toggle">
       {{#if product.custom_fields}}
-      <h3 class="toggle-title">
+      <h4 class="toggle-title">
           <a href="#tab-custom_fields" class="toggleLink" data-collapsible>
             <svg class="icon--name"><use xlink:href="#icon-product-other-details"></use></svg>
             <span>{{lang 'products.other-details'}}</span>
             <svg class="toggle-down-arrow"><use xlink:href="#icon-keyboard-arrow-down"></use></svg>
           </a>
-      </h3>
+      </h4>
       {{/if}}
       {{#if product.custom_fields}}
         <div class="toggle-content clearfix" id="tab-custom_fields">
@@ -47,13 +47,13 @@
 {{#if product.warranty}}
     <section class="toggle">
       {{#if product.warranty}}
-      <h3 class="toggle-title">
+      <h4 class="toggle-title">
           <a href="#tab-warranty" class="toggleLink" data-collapsible>
             <svg class="icon--name"><use xlink:href="#icon-product-warranty"></use></svg>
             <span>{{lang 'products.warranty'}}</span>
             <svg class="toggle-down-arrow"><use xlink:href="#icon-keyboard-arrow-down"></use></svg>
           </a>
-      </h3>
+      </h4>
       {{/if}}
       {{#if product.warranty}}
         <div class="toggle-content" id="tab-warranty">
